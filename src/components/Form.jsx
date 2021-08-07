@@ -3,14 +3,10 @@ import { DishContext } from "../App";
 import Input from "./Input";
 import Feedback from "./Feedback";
 
-function Form({ onType, onSubmit }) {
-  // console.log("Type: " + onType);
+const Form = React.forwardRef(({ onType, onSubmit }, ref) => {
   const dishContext = useContext(DishContext);
   const { addToFeedbackRef } = dishContext.onAddToFeedbackRef;
-  // const { onAddToFeedbackRef, onState, onOutputStyle } =
-  // dishContext;
   const state = dishContext.onState;
-  const inputRef = dishContext.onInputRef;
   const {
     name,
     preparation_time,
@@ -20,36 +16,6 @@ function Form({ onType, onSubmit }) {
     spiciness_scale,
     slices_of_bread,
   } = state;
-
-  const getOutputStyle = (inputVal, refObj, propName, unit) => {
-    console.log(propName);
-    refObj.forEach((el) => {
-      // console.log(el);
-      console.log(el.getAttribute("name"));
-      // const elName = el.getAttribute('name');
-      const elName = el.getAttribute("name");
-      if (elName === propName && refObj !== undefined && refObj !== null) {
-        let refObjMin = parseInt(el.getAttribute("min"));
-        let refObjMax = parseInt(el.getAttribute("max"));
-        if (refObjMin < 0) refObjMin = refObjMin * -1;
-        return {
-          left:
-            ((parseInt(inputVal) + refObjMin) * 100) / (refObjMin + refObjMax) +
-            unit,
-        };
-      }
-    });
-    // if (refObj !== undefined && refObj !== null) {
-    //   let refObjMin = parseInt(refObj.getAttribute("min"));
-    //   let refObjMax = parseInt(refObj.getAttribute("max"));
-    //   if (refObjMin < 0) refObjMin = refObjMin * -1;
-    //   return {
-    //     left:
-    //       ((parseInt(inputVal) + refObjMin) * 100) / (refObjMin + refObjMax) +
-    //       unit,
-    //   };
-    // }
-  };
 
   const forPizza = (
     <div>
@@ -72,7 +38,6 @@ function Form({ onType, onSubmit }) {
         msgResponse={no_of_slices.check}
         onAddToFeedbackRef={addToFeedbackRef}
       />
-      {/* <span className="answer"></span> */}
       <Input
         onTagType="input"
         onTitle="diameter"
@@ -92,7 +57,6 @@ function Form({ onType, onSubmit }) {
         msgResponse={diameter.check}
         onAddToFeedbackRef={addToFeedbackRef}
       />
-      {/* <span className="answer"></span> */}
     </div>
   );
 
@@ -168,7 +132,6 @@ function Form({ onType, onSubmit }) {
           msgResponse={name.check}
           onAddToFeedbackRef={addToFeedbackRef}
         />
-        {/* <span className="answer"></span> */}
 
         <Input
           onTagType="input"
@@ -182,31 +145,14 @@ function Form({ onType, onSubmit }) {
           onAria="preparation_time"
           onRequired={true}
           onDataSizing={null}
-          // onMin="00:12:00"
           onMin={null}
           onMax={null}
           onPattern={"[0-9]{2}:[0-9]{2}:[0-9]{2}"}
-          // onPattern={"([0-2][0-3]):([0-5][0-9]):([0-5][0-9])"}
-          // onPattern={null}
         />
-        {/* <input
-          type="time"
-          className="form-control"
-          name="preparation_time"
-          aria-label="preparation_time"
-          id="preparation_time"
-          required={true}
-          pattern={onPattern}
-          ref={addToInputRef}
-          value={state[onName]["val"]}
-          onChange={handleChanging}
-          onBlur={handleChanging}
-        /> */}
         <Feedback
           msgResponse={preparation_time.check}
           onAddToFeedbackRef={addToFeedbackRef}
         />
-        {/* <span className="answer"></span> */}
 
         <Input
           onTagType="select"
@@ -223,22 +169,6 @@ function Form({ onType, onSubmit }) {
           msgResponse={type.check}
           onAddToFeedbackRef={addToFeedbackRef}
         />
-        {/* <span className="answer"></span> */}
-        {/* <Input
-          onTagType="input"
-          onTitle="diameter"
-          onName="diameter"
-          onType="number"
-          onID="diameter"
-          onClass="form-control"
-          onPlaceHold={null}
-          onStep={0.1}
-          onAria="diameter"
-          onRequired={true}
-          onDataSizing={null}
-          onMin={0}
-          onMax={1000}
-        /> */}
         {onType === "pizza"
           ? forPizza
           : onType === "soup"
@@ -246,13 +176,13 @@ function Form({ onType, onSubmit }) {
           : onType === "sandwich"
           ? forSandwich
           : ""}
-        {/* {forPizza} */}
       </div>
       <div className="row center">
         <div className="buttons col">
           <button
             type="submit"
-            className="btn btn-success btn-check"
+            className="btn btn-check"
+            ref={ref}
             onClick={onSubmit}
           >
             Submit
@@ -261,6 +191,6 @@ function Form({ onType, onSubmit }) {
       </div>
     </form>
   );
-}
+});
 
 export default React.memo(Form);

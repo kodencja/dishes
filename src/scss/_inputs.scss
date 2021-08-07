@@ -23,7 +23,6 @@ input[type="range"] {
   -webkit-appearance: none;
   margin: $thumb-height/3 0;
   width: $track-width;
-  // margin-bottom: 0.5rem;
 
   &:focus {
     outline: none;
@@ -50,7 +49,6 @@ input[type="range"] {
     margin-bottom: (
       ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2)
     );
-    // margin-top: ((-$track-border-width * 2 - $track-height) / 2px);
     margin-top: -6px;
     margin-bottom: -6px;
   }
@@ -114,28 +112,15 @@ input[type="range"] {
 }
 
 .bubble {
-  // font-size: 0.9rem;
   font-size: size("quite-normal");
   background-color: $bubble-bgr-color;
   color: $thumb-color;
   @include paddMrg("margin", "top", $bubble-radius * (-2));
   @include paddMrg("padding", $bubble-radius / 2, $bubble-radius * 2);
-  // margin-top: 2px;
-  // padding: 2px 8px;
   position: absolute;
   border-radius: $bubble-radius;
   left: 50%;
-  //   transform: translateX(-50%);
 }
-/* .bubble::after {
-        content: "";
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: crimson;
-        top: -1px;
-        left: 50%;
-      } */
 
 label {
   @include paddMrg(
@@ -145,22 +130,14 @@ label {
     distance("very-small"),
     distance("zero")
   );
-  // @include paddMrg("margin", 0.5rem, 0, 0.25rem, 0);
-  // margin-top: 0.5rem;
-  // margin-bottom: 0.25rem;
   text-align: center;
   display: block !important;
-  // font-weight: 500;
-  // letter-spacing: $tight-letter-spacing;
-  // font-size: size("quite-normal");
-  // color: #fcfddf;
-  // color: color-inverse($sec1-bgr-col);
-  color: lighten(color-mixed($track-color, $bubble-bgr-color, 50%), 60%);
-  // color: color-mixed($track-color, $bubble-bgr-color, 50%);
+  color: rgb(48, 95, 180);
+  font-weight: weight("fatter");
 }
 
 .input-cont {
-  width: fit-content;
+  //   width: fit-content;
   overflow: hidden;
 }
 
@@ -168,8 +145,6 @@ label {
   width: auto;
   position: relative;
   @include paddMrg("margin", 0, 20px, 10px, 20px);
-  // margin: 0 20px 35px 20px;
-  // margin-left: 40px;
   transition: transform $short-time ease-out;
 }
 
