@@ -1,3 +1,7 @@
+@import "./vars";
+@import "./mixins";
+@import "./inputs";
+
 * {
   box-sizing: border-box;
   margin: 0 0;
@@ -35,7 +39,7 @@ form {
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-top: 0.75rem;
 }
 
 .center {
@@ -44,13 +48,13 @@ form {
   margin-right: auto;
 }
 
-label {
-  font-size: 1.25rem;
-  color: #f2f5c3;
-  margin-top: 1rem;
-  letter-spacing: 1.2px;
-  // display: block;
-}
+// label {
+//   font-size: 1.25rem;
+//   color: #f2f5c3;
+//   margin-top: 1rem;
+//   letter-spacing: 1.2px;
+//   // display: block;
+// }
 
 .form-control {
   // display: block;
@@ -121,3 +125,31 @@ label {
 // #preparation_time{
 //   color: #00a5ce;
 // }
+
+.answer {
+  text-align: center;
+  margin: 15px auto 10px auto;
+}
+
+.invalid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 1rem;
+  color: #dc3545;
+  // color: rgb(244, 27, 53);
+  width: fit-content;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
+  font-weight: 700;
+  display: block;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  // background-color: rgba(253, 255, 206, 0.5) !important;
+  // backdrop-filter: blur(10px) !important;
+}
