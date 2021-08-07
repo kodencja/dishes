@@ -384,7 +384,7 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <h2 className="title">Hungry? Let' order a delicious meal!</h2>
+        <h2 className="title">Hungry? Let's order a delicious meal!</h2>
         <div className="dishes flex" ref={dishesRef}>
           <DishContext.Provider
             value={{
