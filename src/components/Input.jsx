@@ -10,6 +10,7 @@ import { DishContext } from "../App";
 function Input(props) {
   const dishContext = useContext(DishContext);
   const state = dishContext.onState;
+  const dispatch = dishContext.onDispatch;
   const addToInputRef = dishContext.onAddToInputRef;
   // const dispatch = dishContext.onDispatch;
   const handleChanging = dishContext.onChanging;
@@ -22,6 +23,8 @@ function Input(props) {
     diameter,
     spiciness_scale,
     slices_of_bread,
+    outputStyle,
+    loading,
   } = state;
 
   const {
@@ -48,32 +51,64 @@ function Input(props) {
     // console.log(onName + " dish: " + name.val);
     // console.log(onName + " time: " + preparation_time.val);
     // console.log(onOptionNames);
-  });
+    // dispatch({
+    //   type: "outputStyle",
+    //   payload: !outputStyle,
+    // });
+  }, []);
 
-  // const getOutputStyle = useCallback(
-  const getOutputStyle = (inputVal, refObj, propName, unit) => {
-    console.log(propName);
-    refObj.forEach((el) => {
-      // console.log(el);
-      console.log(el.getAttribute("name"));
-      // const elName = el.getAttribute('name');
-      const elName = el.getAttribute("name");
-      if (elName === propName && refObj !== undefined && refObj !== null) {
-        let refObjMin = parseInt(el.getAttribute("min"));
-        let refObjMax = parseInt(el.getAttribute("max"));
-        if (refObjMin < 0) refObjMin = refObjMin * -1;
-        return {
-          left:
+  const getOutputStyle = useCallback(
+    // const getOutputStyle =
+    (inputVal, refObj, propName, unit) => {
+      // console.log("getOutputStyle Fn");
+      // console.log("propName: " + propName);
+      refObj.forEach((el) => {
+        // console.log(el);
+        // console.log(el.getAttribute("name"));
+        // const elName = el.getAttribute('name');
+        const elName = el.getAttribute("name");
+        // console.log("elName: " + elName);
+        if (elName === propName && refObj !== undefined && refObj !== null) {
+          // if (
+          //   elName === "spiciness_scale" &&
+          //   refObj !== undefined &&
+          //   refObj !== null
+          // ) {
+          let refObjMin = parseInt(el.getAttribute("min"));
+          let refObjMax = parseInt(el.getAttribute("max"));
+          if (refObjMin < 0) refObjMin = refObjMin * -1;
+          console.log(
             ((parseInt(inputVal) + refObjMin) * 100) / (refObjMin + refObjMax) +
-            unit,
-        };
-      }
-    });
-  };
-  // },[spiciness_scale] );
+              unit
+          );
+          const leftOutput =
+            ((parseInt(inputVal) + refObjMin) * 100) / (refObjMin + refObjMax) +
+            unit;
+          dispatch({
+            type: "outputStyle",
+            payload: leftOutput,
+          });
+          return outputStyle;
+          // return {
+          //   // left:
+          //   //   ((parseInt(inputVal) + refObjMin) * 100) / (refObjMin + refObjMax) +
+          //   //   unit,
+          //   color: "#000",
+          // };
+        } else {
+          // return {
+          //   color: "pink",
+          // };
+          return outputStyle;
+        }
+      });
+      // };
+    },
+    [spiciness_scale]
+  );
 
   const options = useMemo(() => {
-    console.log("options Fn");
+    // console.log("options Fn");
     if (onTagType === "select") {
       return [...onOptionNames].map((name, ind) => {
         if (name === "default") {
@@ -97,7 +132,7 @@ function Input(props) {
   }, [type]);
 
   const select = useMemo(() => {
-    console.log("select Fn");
+    // console.log("select Fn");
     return (
       <div className="col col-sm-3 col-sm-marg form-group input-cont">
         <div className="input-block">
@@ -128,13 +163,13 @@ function Input(props) {
         </div>
       </div>
     );
-  }, [type]);
+  }, [type, loading]);
   // (
 
   // );
 
   const input = useMemo(() => {
-    console.log("input Fn");
+    // console.log("input Fn");
     return (
       <div className="col col-sm-3 col-sm-marg form-group input-cont">
         <div className="input-block">
@@ -160,10 +195,10 @@ function Input(props) {
         </div>
       </div>
     );
-  }, [type]);
+  }, [state]);
 
   const range = useMemo(() => {
-    console.log("range Fn");
+    // console.log("range Fn");
     return (
       <div className="col col-sm-3 col-sm-marg form-group input-cont">
         <div className="input-block">
@@ -188,19 +223,22 @@ function Input(props) {
           />
           <output
             className="bubble"
-            style={getOutputStyle(
-              state[onName]["val"],
-              inputRef.current,
-              onName,
-              "%"
-            )}
+            // style={getOutputStyle(
+            //   state[onName]["val"],
+            //   inputRef.current,
+            //   onName,
+            //   "%"
+            // )}
+            style={outputStyle}
+            // style={getOutputStyle}
           >
-            {state[onName]["val"] + "px"}
+            {state[onName]["val"]}
           </output>
         </div>
       </div>
     );
-  }, [spiciness_scale, type]);
+  }, [state]);
+  // }, [spiciness_scale, type, outputStyle]);
 
   return (
     <>

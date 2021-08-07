@@ -51,8 +51,8 @@ input[type="range"] {
       ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2)
     );
     // margin-top: ((-$track-border-width * 2 - $track-height) / 2px);
-    // margin-top: -6px;
-    // margin-bottom: -6px;
+    margin-top: -6px;
+    margin-bottom: -6px;
   }
 
   &:focus::-webkit-slider-runnable-track {
@@ -118,14 +118,14 @@ input[type="range"] {
   font-size: size("quite-normal");
   background-color: $bubble-bgr-color;
   color: $thumb-color;
-  @include paddMrg("margin", "top", $bubble-radius / 2);
+  @include paddMrg("margin", "top", $bubble-radius * (-2));
   @include paddMrg("padding", $bubble-radius / 2, $bubble-radius * 2);
   // margin-top: 2px;
   // padding: 2px 8px;
   position: absolute;
   border-radius: $bubble-radius;
   left: 50%;
-  transform: translateX(-50%);
+  //   transform: translateX(-50%);
 }
 /* .bubble::after {
         content: "";
@@ -160,13 +160,14 @@ label {
 }
 
 .input-cont {
+  width: fit-content;
   overflow: hidden;
 }
 
 .input-block {
   width: auto;
   position: relative;
-  @include paddMrg("margin", 0, 20px, 35px, 20px);
+  @include paddMrg("margin", 0, 20px, 10px, 20px);
   // margin: 0 20px 35px 20px;
   // margin-left: 40px;
   transition: transform $short-time ease-out;

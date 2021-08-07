@@ -34,6 +34,8 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   margin-top: -6px;
   margin-bottom: -6px;
+  margin-top: -6px;
+  margin-bottom: -6px;
 }
 
 input[type="range"]:focus::-webkit-slider-runnable-track {
@@ -100,14 +102,11 @@ input[type="range"]:focus::-ms-fill-upper {
   font-size: 0.9rem;
   background-color: #cf4b34;
   color: #fff;
-  margin-top: 2px;
+  margin-top: -8px;
   padding: 2px 8px;
   position: absolute;
   border-radius: 4px;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
 }
 
 /* .bubble::after {
@@ -130,6 +129,9 @@ label {
 }
 
 .input-cont {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   overflow: hidden;
 }
 
@@ -138,7 +140,7 @@ label {
   position: relative;
   margin-top: 0;
   margin-right: 20px;
-  margin-bottom: 35px;
+  margin-bottom: 10px;
   margin-left: 20px;
   -webkit-transition: -webkit-transform 0.75s ease-out;
   transition: -webkit-transform 0.75s ease-out;
@@ -167,7 +169,31 @@ body {
   margin: 50px;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.no-display {
+  display: none;
+}
+
+.flex {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
 .dishes {
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -187,11 +213,28 @@ form {
 }
 
 .form-group {
-  margin-top: 0.75rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.center {
+.dishes-form {
   text-align: center;
+  width: 100%;
+}
+
+.image {
+  text-align: center;
+  width: auto;
+  margin-top: 3rem;
+  margin-left: 3rem;
+  -webkit-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+}
+
+.row {
+  text-align: center;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -260,19 +303,28 @@ form {
 }
 
 .answer {
+  font-size: 1.2rem;
   text-align: center;
   margin: 15px auto 10px auto;
 }
 
+.fine {
+  color: blue;
+}
+
+.bad {
+  color: #dc3545;
+}
+
+.wait {
+  color: black;
+}
+
 .invalid-feedback {
-  display: none;
   width: 100%;
   margin-top: 0.25rem;
   font-size: 1rem;
   color: #dc3545;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
   text-align: center;
   margin-left: auto;
   margin-right: auto;

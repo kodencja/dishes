@@ -9,7 +9,7 @@ const useValidation = (dispatch) => {
 
   // 3 groups of 2 character separated by : each character must be a digit contained in that specific ranges
   const isValidTime = (time) => {
-    console.log(time);
+    // console.log(time);
     // console.log(time.length);
     checkTimeLength.current = "";
     if(time.length < 8){
@@ -34,16 +34,16 @@ const useValidation = (dispatch) => {
 
   const onValidation = (dataToCheck, size) => {
     console.log("onValidation Fn");
-    console.log(dataToCheck);
+    // console.log(dataToCheck);
     arrayOfAllChecksValue.current = [];
     return new Promise((resolve, reject) => {
       let count = 0;
       for (let eachProp in dataToCheck) {
         count++;
-        console.log(`${eachProp}_check`);
-        console.log(dataToCheck[eachProp]["sort"]);
-        console.log(dataToCheck[eachProp]["val"]);
-        console.log(eachProp);
+        // console.log(`${eachProp}_check`);
+        // console.log(dataToCheck[eachProp]["sort"]);
+        // console.log(dataToCheck[eachProp]["val"]);
+        // console.log(eachProp);
 
         // get rid of spaces
         const valueWithoutSpaces = dataToCheck[eachProp]["val"].split(" ").join("");
@@ -122,7 +122,7 @@ const useValidation = (dispatch) => {
 
  
 
-  return { arrayOfAllChecksValue, onValidation };
+  return { onValidation };
 };
 
 export default useValidation;
