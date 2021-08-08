@@ -30,17 +30,17 @@ const useValidation = (dispatch) => {
       for (let eachProp in dataToCheck) {
         count++;
 
-        // get rid of spaces
-        const valueWithoutSpaces = dataToCheck[eachProp]["val"].split(" ").join("");
-        if (!valueWithoutSpaces) {
+        // get rid of whitespaces
+        const valueWithoutSpaces = dataToCheck[eachProp]["val"].toString().split(" ").join("");
+
+        if (valueWithoutSpaces.length <= 0) {
           arrayOfAllChecksValue.current.push(false);
           dispatch({
             type: `${eachProp}_check`,
             payload: "This field has to be filled in",
           });
           resolve(arrayOfAllChecksValue.current);
-        }
-
+        } else {
         // run validation accordingly to the input 'type' ('sort' in state)
         switch (dataToCheck[eachProp]["sort"]) {
           case "text":
@@ -89,6 +89,9 @@ const useValidation = (dispatch) => {
           default:
             break;
         }
+        }
+
+
         if (count >= size) {
           resolve(arrayOfAllChecksValue.current);
         }

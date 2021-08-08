@@ -12,10 +12,10 @@ const initialState = {
   name: { val: "", sort: "text", check: "" },
   preparation_time: { val: "00:15:00", sort: "time", check: "" },
   type: { val: "", sort: "text", check: "" },
-  no_of_slices: { val: "1", sort: "intNumber", check: "" },
-  diameter: { val: "0.1", sort: "floatNumber", check: "" },
-  spiciness_scale: { val: "1", sort: "intNumber", check: "" },
-  slices_of_bread: { val: "1", sort: "intNumber", check: "" },
+  no_of_slices: { val: 1, sort: "intNumber", check: "" },
+  diameter: { val: 0.1, sort: "floatNumber", check: "" },
+  spiciness_scale: { val: 1, sort: "intNumber", check: "" },
+  slices_of_bread: { val: 1, sort: "intNumber", check: "" },
   outputStyle: { left: "0%" },
   photoName: "",
   sizeOfSubmittedObject: 0,
@@ -39,7 +39,7 @@ const reducer = (state, action) => {
     case "preparation_time":
       return {
         ...state,
-        preparation_time: { ...state.preparation_time, val: action.payload },
+        preparation_time: { ...state.preparation_time, val: parseInt(action.payload) },
       };
 
     case "preparation_time_check":
@@ -57,7 +57,7 @@ const reducer = (state, action) => {
     case "no_of_slices":
       return {
         ...state,
-        no_of_slices: { ...state.no_of_slices, val: action.payload },
+        no_of_slices: { ...state.no_of_slices, val: parseInt(action.payload) },
       };
 
     case "no_of_slices_check":
@@ -67,7 +67,7 @@ const reducer = (state, action) => {
       };
 
     case "diameter":
-      return { ...state, diameter: { ...state.diameter, val: action.payload } };
+      return { ...state, diameter: { ...state.diameter, val: parseFloat(action.payload) } };
 
     case "diameter_check":
       return {
@@ -78,7 +78,7 @@ const reducer = (state, action) => {
     case "spiciness_scale":
       return {
         ...state,
-        spiciness_scale: { ...state.spiciness_scale, val: action.payload },
+        spiciness_scale: { ...state.spiciness_scale, val: parseInt(action.payload) },
       };
 
     case "spiciness_scale_check":
@@ -90,7 +90,7 @@ const reducer = (state, action) => {
     case "slices_of_bread":
       return {
         ...state,
-        slices_of_bread: { ...state.slices_of_bread, val: action.payload },
+        slices_of_bread: { ...state.slices_of_bread, val: parseInt(action.payload) },
       };
 
     case "slices_of_bread_check":
@@ -124,7 +124,8 @@ const reducer = (state, action) => {
       return { ...state, loading: action.payload };
 
     case "idIncrement":
-      return { ...state, id: parseInt(state.id) + action.payload };
+      // return { ...state, id: parseInt(state.id) + parseInt(action.payload) };
+      return { ...state, id: parseInt(state.id) + 1 };
 
     case "reset":
       return {
@@ -132,10 +133,10 @@ const reducer = (state, action) => {
         name: { ...state.name, val: "" },
         preparation_time: { ...state.preparation_time, val: "00:15:00" },
         type: { ...state.type, val: "" },
-        no_of_slices: { ...state.no_of_slices, val: "1" },
-        diameter: { ...state.diameter, val: "0.1" },
-        slices_of_bread: { ...state.slices_of_bread, val: "1" },
-        spiciness_scale: { ...state.spiciness_scale, val: "1" },
+        no_of_slices: { ...state.no_of_slices, val: 1 },
+        diameter: { ...state.diameter, val: 0.1 },
+        slices_of_bread: { ...state.slices_of_bread, val: 1 },
+        spiciness_scale: { ...state.spiciness_scale, val: 1 },
         photoName: "",
       };
     default:
@@ -182,15 +183,23 @@ function App() {
   } = state;
 
 
+  useEffect(()=>{
+  //  console.log(id); 
+ 
+  })
+
   // final step with API Post Request
   useEffect(() => {
     if (validationFinished === "ok") {
       dataToSend.current = {
         ...dataToSend.current,
         id: id,
-      };
+      };;
 
       dataToSend.current = JSON.stringify(dataToSend.current);
+
+      console.log("Data to be send:")
+      console.log(dataToSend.current);
 
       photoRef.current.classList.add("hidden", "no-display");
 
@@ -205,6 +214,7 @@ function App() {
       const options = {
         method: "POST",
         url: "https://frosty-wood-6558.getsandbox.com:443/dishes",
+        // url: "https://jsonplaceholder.typicode.com/posts",
         headers: { "Content-type": "application/json" },
         data: dataToSend.current,
       };
@@ -218,6 +228,8 @@ function App() {
       btnRef.current.disabled = true;
       axios(options)
         .then((response) => {
+          console.log(response.data);
+          dataToSend.current = "";
           dispatch({ type: "loading", payload: false });
           answerRef.current.classList.remove("wait");
           answerRef.current.classList.add("fine");
@@ -230,6 +242,8 @@ function App() {
           btnRef.current.disabled = false;
         })
         .catch((error) => {
+          console.log(error.message);
+          dataToSend.current = "";
           dispatch({ type: "loading", payload: false });
           answerRef.current.classList.remove("wait");
           answerRef.current.classList.add("bad");
@@ -292,6 +306,7 @@ function App() {
     }
 
     dispatch({ type: e.target.name, payload: e.target.value });
+
     if (e.target.type === "range") {
       getOutputStyle(e.target.value, e, e.target.name, "px");
     }
@@ -359,6 +374,7 @@ function App() {
         [eachProp]: dataToValidate[eachProp]["val"],
       };
     }
+
     // if there are no errors in input fields
     if (replayCheck.every((el) => el === true)) {
       dispatch({ type: "validationFinished", payload: "ok" });
