@@ -39,7 +39,7 @@ const reducer = (state, action) => {
     case "preparation_time":
       return {
         ...state,
-        preparation_time: { ...state.preparation_time, val: parseInt(action.payload) },
+        preparation_time: { ...state.preparation_time, val: action.payload },
       };
 
     case "preparation_time_check":
@@ -57,7 +57,7 @@ const reducer = (state, action) => {
     case "no_of_slices":
       return {
         ...state,
-        no_of_slices: { ...state.no_of_slices, val: parseInt(action.payload) },
+        no_of_slices: { ...state.no_of_slices, val: action.payload },
       };
 
     case "no_of_slices_check":
@@ -67,7 +67,7 @@ const reducer = (state, action) => {
       };
 
     case "diameter":
-      return { ...state, diameter: { ...state.diameter, val: parseFloat(action.payload) } };
+      return { ...state, diameter: { ...state.diameter, val: action.payload } };
 
     case "diameter_check":
       return {
@@ -78,7 +78,7 @@ const reducer = (state, action) => {
     case "spiciness_scale":
       return {
         ...state,
-        spiciness_scale: { ...state.spiciness_scale, val: parseInt(action.payload) },
+        spiciness_scale: { ...state.spiciness_scale, val: action.payload },
       };
 
     case "spiciness_scale_check":
@@ -90,7 +90,7 @@ const reducer = (state, action) => {
     case "slices_of_bread":
       return {
         ...state,
-        slices_of_bread: { ...state.slices_of_bread, val: parseInt(action.payload) },
+        slices_of_bread: { ...state.slices_of_bread, val: action.payload },
       };
 
     case "slices_of_bread_check":
