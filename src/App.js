@@ -198,8 +198,8 @@ function App() {
 
       dataToSend.current = JSON.stringify(dataToSend.current);
 
-      console.log("Data to be send:")
-      console.log(dataToSend.current);
+      // console.log("Data to be send:")
+      // console.log(dataToSend.current);
 
       photoRef.current.classList.add("hidden", "no-display");
 
